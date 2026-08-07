@@ -1,0 +1,286 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+/*
+  NIGHT DRIVE
+  Flat dark grey canvas, magenta/cyan signal accents, grain.
+  Dark-only by design — the aesthetic does not have a light mode.
+*/
+:root {
+  --background: #141517;
+  --foreground: #ededef;
+  --card: #1b1c1f;
+  --card-foreground: #ededef;
+  --popover: #1b1c1f;
+  --popover-foreground: #ededef;
+  --primary: #ff2e88;
+  --primary-foreground: #14041d;
+  --secondary: #26282b;
+  --secondary-foreground: #ededef;
+  --muted: #202124;
+  --muted-foreground: #9d9fa6;
+  --accent: #2b2d31;
+  --accent-foreground: #ededef;
+  --destructive: #ff5470;
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.16);
+  --ring: #ff2e88;
+  --radius: 0.5rem;
+
+  /* Signal palette — used for glow, gradients and emphasis, never for body copy. */
+  --neon: #ff2e88;
+  --neon-cyan: #22e3d0;
+  --neon-violet: #7c5cff;
+
+  --chart-1: #ff2e88;
+  --chart-2: #22e3d0;
+  --chart-3: #7c5cff;
+  --chart-4: #ffb020;
+  --chart-5: #4f7cff;
+
+  --sidebar: #150d33;
+  --sidebar-foreground: #efeaff;
+  --sidebar-primary: #ff2e88;
+  --sidebar-primary-foreground: #14041d;
+  --sidebar-accent: #241a52;
+  --sidebar-accent-foreground: #efeaff;
+  --sidebar-border: rgb(173 150 255 / 0.14);
+  --sidebar-ring: #ff2e88;
+}
+
+/* The `.dark` class is force-applied at the root; keep it identical to :root. */
+.dark {
+  --background: #141517;
+  --foreground: #ededef;
+  --card: #1b1c1f;
+  --card-foreground: #ededef;
+  --popover: #1b1c1f;
+  --popover-foreground: #ededef;
+  --primary: #ff2e88;
+  --primary-foreground: #14041d;
+  --secondary: #26282b;
+  --secondary-foreground: #ededef;
+  --muted: #202124;
+  --muted-foreground: #9d9fa6;
+  --accent: #2b2d31;
+  --accent-foreground: #ededef;
+  --destructive: #ff5470;
+  --border: rgb(255 255 255 / 0.1);
+  --input: rgb(255 255 255 / 0.16);
+  --ring: #ff2e88;
+}
+
+@theme inline {
+  --font-sans: var(--font-sans);
+  --font-heading: var(--font-heading);
+  --font-mono: var(--font-mono);
+
+  --color-neon: var(--neon);
+  --color-neon-cyan: var(--neon-cyan);
+  --color-neon-violet: var(--neon-violet);
+
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+  --color-foreground: var(--foreground);
+  --color-background: var(--background);
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+
+  html {
+    @apply font-sans;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    min-height: 100svh;
+  }
+
+  /* Grain overlay — sits above the canvas, below all content. */
+  body::before {
+    content: "";
+    position: fixed;
+    inset: 0;
+    z-index: 0;
+    pointer-events: none;
+    opacity: 0.055;
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
+  }
+
+  ::selection {
+    background: var(--neon);
+    color: var(--primary-foreground);
+  }
+
+  h1,
+  h2,
+  h3,
+  h4 {
+    @apply font-heading;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  /* Small uppercase monospace label used as a section index throughout. */
+  .eyebrow {
+    @apply font-mono text-[0.6875rem] tracking-[0.22em] uppercase;
+    color: var(--muted-foreground);
+  }
+
+  /* Hairline that fades out — used under section headers. */
+  .rule {
+    height: 1px;
+    background: linear-gradient(90deg, rgb(173 150 255 / 0.35), transparent);
+  }
+}
+
+/* ---------- Motion ---------- */
+
+@keyframes nd-rise {
+  from {
+    opacity: 0;
+    transform: translate3d(0, 22px, 0);
+  }
+  to {
+    opacity: 1;
+    transform: translate3d(0, 0, 0);
+  }
+}
+
+@keyframes nd-marquee {
+  from {
+    transform: translate3d(0, 0, 0);
+  }
+  to {
+    transform: translate3d(-50%, 0, 0);
+  }
+}
+
+@keyframes nd-scan {
+  from {
+    transform: translate3d(-100%, 0, 0);
+  }
+  to {
+    transform: translate3d(100%, 0, 0);
+  }
+}
+
+/* Scroll-triggered reveal. Elements start hidden and are released by
+   IntersectionObserver adding [data-visible="true"]. */
+[data-reveal] {
+  opacity: 0;
+}
+
+[data-reveal][data-visible="true"] {
+  animation: nd-rise 0.85s cubic-bezier(0.16, 1, 0.3, 1) both;
+  animation-delay: var(--reveal-delay, 0ms);
+}
+
+/* Fade the ticker into the background at both edges so words never appear
+   sliced off against a hard boundary. */
+.nd-marquee {
+  -webkit-mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+  mask-image: linear-gradient(
+    90deg,
+    transparent,
+    #000 8%,
+    #000 92%,
+    transparent
+  );
+}
+
+.nd-marquee-track {
+  animation: nd-marquee 42s linear infinite;
+}
+
+.nd-marquee:hover .nd-marquee-track,
+.nd-marquee:focus-within .nd-marquee-track {
+  animation-play-state: paused;
+}
+
+/* Light sweep across a card on hover. */
+.nd-scan::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: linear-gradient(
+    105deg,
+    transparent 35%,
+    rgb(255 255 255 / 0.06) 50%,
+    transparent 65%
+  );
+  opacity: 0;
+}
+
+.nd-scan:hover::after {
+  opacity: 1;
+  animation: nd-scan 0.9s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+
+  [data-reveal] {
+    opacity: 1;
+  }
+}
