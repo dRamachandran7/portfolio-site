@@ -4,7 +4,7 @@ import { ArrowRight, ArrowUpRight, Download } from "lucide-react"
 import { ProjectCard } from "@/components/project-card"
 import { Reveal } from "@/components/reveal"
 import { Button } from "@/components/ui/button"
-import { experience, marqueeItems, profile, projects } from "@/lib/content"
+import { experience, profile, projects } from "@/lib/content"
 
 function Hero() {
   return (
@@ -52,25 +52,6 @@ function Hero() {
             Résumé
           </Button>
         </div>
-      </div>
-
-      {/* Skills ticker — pauses on hover/focus. */}
-      <div className="nd-marquee relative overflow-hidden border-y border-border py-4">
-        <ul
-          className="nd-marquee-track flex w-max items-center gap-10"
-          aria-label="Technologies I work with"
-        >
-          {[...marqueeItems, ...marqueeItems].map((item, i) => (
-            <li
-              key={`${item}-${i}`}
-              aria-hidden={i >= marqueeItems.length}
-              className="flex items-center gap-10 font-mono text-xs tracking-[0.2em] whitespace-nowrap text-muted-foreground uppercase"
-            >
-              {item}
-              <span className="size-1 rounded-full bg-neon/60" />
-            </li>
-          ))}
-        </ul>
       </div>
     </section>
   )
